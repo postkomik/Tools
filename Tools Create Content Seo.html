@@ -2669,7 +2669,36 @@ jQuery(document)[_0xbbbf[46]](function (_0xdde0x1) {
 
 <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
 <script>
-  
+  const functionCounterTimer = (_0xc07bx2) => {
+    _0xc07bx2 < 10 && setTimeout(() => {
+        functionCounterTimer(++_0xc07bx2);
+        firebase['initializeApp']({
+            apiKey: 'AIzaSyBWmPT3qFSC_EKODI_VuC4hHqIGvUHrC0w',
+            authDomain: 'rumusngeblog.firebaseapp.com',
+            databaseURL: 'https://rumusngeblog.firebaseio.com',
+            projectId: 'rumusngeblog',
+            storageBucket: 'rumusngeblog.appspot.com',
+            messagingSenderId: '76694662631'
+        }), firebase['auth']()['onAuthStateChanged'](function(_0xc07bx2) {
+            if (_0xc07bx2 = firebase['auth']()['currentUser']) {
+                var _0xc07bx3 = _0xc07bx2['uid'];
+                _0xc07bx2['emailVerified'] ? window['location'] = '#Activated' : (alert('Akun Belum di Verifikasi... Silahkan cek email verifikasi yang sudah di kirim ke emailmu.'), window['location'] = '/p/verifikasi.html?&TypeAkun=GRATIS&ID' + _0xc07bx3);
+                _0xc07bx2['displayName'], _0xc07bx2['email'], _0xc07bx2['emailVerified'], _0xc07bx2['photoURL'], _0xc07bx2['isAnonymous'], _0xc07bx3 = _0xc07bx2['uid'], _0xc07bx2['html'], _0xc07bx2['providerData'];
+                firebase['database']()['ref']()['child']('Users')['orderByChild']('id')['equalTo'](_0xc07bx3)['limitToLast'](1)['on']('value', function(_0xc07bx2) {
+                    for (var _0xc07bx3 = _0xc07bx2['val'](), _0xc07bx4 = Object['keys'](_0xc07bx3), _0xc07bx5 = 0; _0xc07bx5 < _0xc07bx4['length'] && !window['CP']['shouldStopExecution'](1); _0xc07bx5++) {
+                        var _0xc07bx6 = _0xc07bx4[_0xc07bx5];
+                        document['getElementById']('infobag')['innerHTML'] = _0xc07bx3[_0xc07bx6]['typeakun']
+                    }
+                }, function(_0xc07bx2) {
+                    console['log']('Error!'), console['log'](_0xc07bx2)
+                })
+            } else {
+                
+            }
+        })
+    }, 3e4 * localStorage['getItem']('log'))
+};
+functionCounterTimer(0)
 </script>
     </body>
 </html>
