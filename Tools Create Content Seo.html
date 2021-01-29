@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Tools Create Content Seo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <style>
+            
+            @import "style.css";
+        </style>
+    </head>
+    <body>
+        <div id="seo-checks-keyword" class='header1'>Tools Buat Artikel Konten Analisis SEO postkomik tapi ini hanya cloningan </div>
+<div class='kopdud'>
+    <div id="actions">
+        <div class='edited'> <button id="copy" class="pure-material-button-contained">Copy</button> <button onclick="return confirm('Yakin mau di hapus.? data akan hilang.');" id="clear" class="pure-material-button-text">Hapus</button> </div> <input type='text' name='target kata kunci' id='seo-keyword' placeholder='Target Kata Kunci' value=''> <input class="autocomplete" id="initialSearchInput" placeholder="Cari Kata Kunci.">
+        <div class="status-ajax"></div> <label class="pure-material-switch"> <input id="spellcheck" type="checkbox" checked='checked' /> <span>Cek Kata Kunci</span> </label>
+    </div>
+    <div id="options"> <label class="pure-material-slider"> <input style="border:none" id="length" type="range" min="1" max="30" value="4"> <span>Atur Duplikat Kata: <output>4</output></span> </label> </div>
+    <hr>
+    <div id="text"> <textarea id="source" class='source' placeholder='Tulis artikel..'></textarea>
+        <div id="highlights"></div>
+    </div>
+    <ol class="vsSearchResults allSearchResults"></ol>
+    <ol id="list"> </ol>
+</div> <template>
+    <li class="item"> <label> <input class="hidden" type="checkbox"> <span class="count"></span> <span class="word"></span> </label> </li>
+</template>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<div class="output row">
+    <div>Total Kata: <span id="wordCount">0</span>
+        <txt style='color:#00b71f'>SEO Minimal 300 Kata.</txt>
+    </div>
+    <div>Total Karakter: <span id="characterCount">0</span>
+        <txt style='color:#00b71f'>SEO Minimal 1500 Karakter.</txt>
+    </div>
+</div>
+<div class="output row">
+    <div>Sentences: <span id="sentenceCount">0</span></div>
+    <div>Paragraphs: <span id="paragraphCount">0</span></div>
+</div>
+<div class="output row">
+    <div>Perkiraan Waktu Baca: <span id="readingTime">0</span></div>
+    <div id="readability">Buka Tips SEO #1.</div>
+</div>
+<div class="keywords"> Top Katakunci: <ul id="topKeywords"> </ul>
+</div>
+<div class='h222'>
+    <center>EDIT HASIL TULISAN</center>
+</div>
+<div id="toolba"> <span class="ql-format-group"> <select title="Font" class="ql-font">
+            <option value="sans-serif" selected="">Sans Serif</option>
+            <option value="serif">Serif</option>
+            <option value="monospace">Monospace</option>
+        </select> <select title="Size" class="ql-size">
+            <option value="10px">Small</option>
+            <option value="13px" selected="">Normal</option>
+            <option value="18px">Large</option>
+            <option value="32px">Huge</option>
+        </select> </span> <span class="ql-format-group"> <span title="Bold" class="ql-format-button ql-bold"></span> <span class="ql-format-separator"></span> <span title="Italic" class="ql-format-button ql-italic"></span> <span class="ql-format-separator"></span> <span title="Underline" class="ql-format-button ql-underline"></span> <span class="ql-format-separator"></span> <span title="Strikethrough" class="ql-format-button ql-strike"></span> </span> <span class="ql-format-group"> <select title="Text Color" class="ql-color">
+            <option value="rgb(0, 0, 0)" label="rgb(0, 0, 0)" selected=""></option>
+            <option value="rgb(230, 0, 0)" label="rgb(230, 0, 0)"></option>
+            <option value="rgb(255, 153, 0)" label="rgb(255, 153, 0)"></option>
+            <option value="rgb(255, 255, 0)" label="rgb(255, 255, 0)"></option>
+            <option value="rgb(0, 138, 0)" label="rgb(0, 138, 0)"></option>
+            <option value="rgb(0, 102, 204)" label="rgb(0, 102, 204)"></option>
+            <option value="rgb(153, 51, 255)" label="rgb(153, 51, 255)"></option>
+            <option value="rgb(255, 255, 255)" label="rgb(255, 255, 255)"></option>
+            <option value="rgb(250, 204, 204)" label="rgb(250, 204, 204)"></option>
+            <option value="rgb(255, 235, 204)" label="rgb(255, 235, 204)"></option>
+            <option value="rgb(255, 255, 204)" label="rgb(255, 255, 204)"></option>
+            <option value="rgb(204, 232, 204)" label="rgb(204, 232, 204)"></option>
+            <option value="rgb(204, 224, 245)" label="rgb(204, 224, 245)"></option>
+            <option value="rgb(235, 214, 255)" label="rgb(235, 214, 255)"></option>
+            <option value="rgb(187, 187, 187)" label="rgb(187, 187, 187)"></option>
+            <option value="rgb(240, 102, 102)" label="rgb(240, 102, 102)"></option>
+            <option value="rgb(255, 194, 102)" label="rgb(255, 194, 102)"></option>
+            <option value="rgb(255, 255, 102)" label="rgb(255, 255, 102)"></option>
+            <option value="rgb(102, 185, 102)" label="rgb(102, 185, 102)"></option>
+            <option value="rgb(102, 163, 224)" label="rgb(102, 163, 224)"></option>
+            <option value="rgb(194, 133, 255)" label="rgb(194, 133, 255)"></option>
+            <option value="rgb(136, 136, 136)" label="rgb(136, 136, 136)"></option>
+            <option value="rgb(161, 0, 0)" label="rgb(161, 0, 0)"></option>
+            <option value="rgb(178, 107, 0)" label="rgb(178, 107, 0)"></option>
+            <option value="rgb(178, 178, 0)" label="rgb(178, 178, 0)"></option>
+            <option value="rgb(0, 97, 0)" label="rgb(0, 97, 0)"></option>
+            <option value="rgb(0, 71, 178)" label="rgb(0, 71, 178)"></option>
+            <option value="rgb(107, 36, 178)" label="rgb(107, 36, 178)"></option>
+            <option value="rgb(68, 68, 68)" label="rgb(68, 68, 68)"></option>
+            <option value="rgb(92, 0, 0)" label="rgb(92, 0, 0)"></option>
+            <option value="rgb(102, 61, 0)" label="rgb(102, 61, 0)"></option>
+            <option value="rgb(102, 102, 0)" label="rgb(102, 102, 0)"></option>
+            <option value="rgb(0, 55, 0)" label="rgb(0, 55, 0)"></option>
+            <option value="rgb(0, 41, 102)" label="rgb(0, 41, 102)"></option>
+            <option value="rgb(61, 20, 102)" label="rgb(61, 20, 102)"></option>
+        </select> <span class="ql-format-separator"></span> <select title="Background Color" class="ql-background">
+            <option value="rgb(0, 0, 0)" label="rgb(0, 0, 0)"></option>
+            <option value="rgb(230, 0, 0)" label="rgb(230, 0, 0)"></option>
+            <option value="rgb(255, 153, 0)" label="rgb(255, 153, 0)"></option>
+            <option value="rgb(255, 255, 0)" label="rgb(255, 255, 0)"></option>
+            <option value="rgb(0, 138, 0)" label="rgb(0, 138, 0)"></option>
+            <option value="rgb(0, 102, 204)" label="rgb(0, 102, 204)"></option>
+            <option value="rgb(153, 51, 255)" label="rgb(153, 51, 255)"></option>
+            <option value="rgb(255, 255, 255)" label="rgb(255, 255, 255)" selected=""></option>
+            <option value="rgb(250, 204, 204)" label="rgb(250, 204, 204)"></option>
+            <option value="rgb(255, 235, 204)" label="rgb(255, 235, 204)"></option>
+            <option value="rgb(255, 255, 204)" label="rgb(255, 255, 204)"></option>
+            <option value="rgb(204, 232, 204)" label="rgb(204, 232, 204)"></option>
+            <option value="rgb(204, 224, 245)" label="rgb(204, 224, 245)"></option>
+            <option value="rgb(235, 214, 255)" label="rgb(235, 214, 255)"></option>
+            <option value="rgb(187, 187, 187)" label="rgb(187, 187, 187)"></option>
+            <option value="rgb(240, 102, 102)" label="rgb(240, 102, 102)"></option>
+            <option value="rgb(255, 194, 102)" label="rgb(255, 194, 102)"></option>
+            <option value="rgb(255, 255, 102)" label="rgb(255, 255, 102)"></option>
+            <option value="rgb(102, 185, 102)" label="rgb(102, 185, 102)"></option>
+            <option value="rgb(102, 163, 224)" label="rgb(102, 163, 224)"></option>
+            <option value="rgb(194, 133, 255)" label="rgb(194, 133, 255)"></option>
+            <option value="rgb(136, 136, 136)" label="rgb(136, 136, 136)"></option>
+            <option value="rgb(161, 0, 0)" label="rgb(161, 0, 0)"></option>
+            <option value="rgb(178, 107, 0)" label="rgb(178, 107, 0)"></option>
+            <option value="rgb(178, 178, 0)" label="rgb(178, 178, 0)"></option>
+            <option value="rgb(0, 97, 0)" label="rgb(0, 97, 0)"></option>
+            <option value="rgb(0, 71, 178)" label="rgb(0, 71, 178)"></option>
+            <option value="rgb(107, 36, 178)" label="rgb(107, 36, 178)"></option>
+            <option value="rgb(68, 68, 68)" label="rgb(68, 68, 68)"></option>
+            <option value="rgb(92, 0, 0)" label="rgb(92, 0, 0)"></option>
+            <option value="rgb(102, 61, 0)" label="rgb(102, 61, 0)"></option>
+            <option value="rgb(102, 102, 0)" label="rgb(102, 102, 0)"></option>
+            <option value="rgb(0, 55, 0)" label="rgb(0, 55, 0)"></option>
+            <option value="rgb(0, 41, 102)" label="rgb(0, 41, 102)"></option>
+            <option value="rgb(61, 20, 102)" label="rgb(61, 20, 102)"></option>
+        </select> </span> <span class="ql-format-group"> <span title="List" class="ql-format-button ql-list"></span> <span class="ql-format-separator"></span> <span title="Bullet" class="ql-format-button ql-bullet"></span> <span class="ql-format-separator"></span> <select title="Text Alignment" class="ql-align">
+            <option value="left" label="Left" selected=""></option>
+            <option value="center" label="Center"></option>
+            <option value="right" label="Right"></option>
+            <option value="justify" label="Justify"></option>
+        </select> </span> <span class="ql-format-group"> <span title="Link" class="ql-format-button ql-link"></span> </span> </div>
+<div id="editor" class="text spell">
+    <hr />
+</div><br /><br />
+<style>
+    #int {
+        min-width: 310px;
+        max-width: 800px;
+        margin: 0 auto
+    }
+
+    button {
+        margin-top: 10px !important;
+        margin-left: 10px !important;
+        ;
+    }
+
+    svg {
+        width: 100% !important;
+        height: 100% !important;
+        vertical-align: middle;
+    }
+</style>
+<center style="color: #407ed8;font-size: 24px;font-weight: bold;">WORDCLOUD SEO ANDA</center>
+<div id="int"></div>
+<script src='https://code.highcharts.com/highcharts.js'></script>
+<script src='https://code.highcharts.com/modules/wordcloud.js'></script>
+<script id="robbyblupartel">
+    var text = localStorage.getItem("HASILARTIKEL1");
+
+    function redraw(colors = ['#2f7ed8', '#2f7ed8']) {
+        var lines = text.split(/[,\. ]+/g),
+            data = Highcharts.reduce(lines, function(arr, word) {
+                var obj = Highcharts.find(arr, function(obj) {
+                    return obj.name === word;
+                });
+                if (obj) {
+                    obj.weight += 1;
+                } else {
+                    obj = {
+                        name: word,
+                        weight: 1
+                    };
+                    arr.push(obj);
+                }
+                return arr;
+            }, []);
+        var wordcloud = Highcharts.chart('int', {
+            series: [{
+                type: 'wordcloud',
+                data: data,
+                name: 'Occurrences'
+            }],
+            title: false,
+            colors: colors,
+            tooltip: false
+        });
+        jQuery('.highcharts-series-group').on("click", "text", function() {
+            jQuery(this).css({
+                opacity: 1
+            });
+            jQuery(".highcharts-series-group text").not(this).css({
+                opacity: 0.6
+            });
+        });
+        jQuery(document).click(function(e) {
+            var target = e.target;
+            if (!jQuery(target).is('text')) {
+                jQuery(".highcharts-series-group text").css({
+                    opacity: 1
+                });
+            }
+        });
+    }
+    redraw();
+    jQuery("#tc").click(function() {
+        var hex = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+        console.log(hex);
+        $(this).css({
+            background: hex
+        });
+        redraw([hex]);
+    });
+</script>
+
+<hr />
+<div style="margin-top: 230px;" class="code">
+    <div class='conta'>
+        <div id="carousel" class='divide'>
+            <div class="btn-bar"> <select style='float:left;margin-right: 9px;background:#fff;padding:2px' id="pilihide">
+                    <option value="">Pilihan Ide</option>
+                    <option value="1">1. Intelek</option>
+                    <option value="2">2. Fashion</option>
+                    <option value="3">3. Game</option>
+                    <option value="4">4. Tekno</option>
+                    <option value="5">5. Software</option>
+                    <option value="6">6. Automotif</option>
+                    <option value="7">7. Rumah</option>
+                    <option value="8">8. Property</option>
+                    <option value="9">9. Bisnis</option>
+                    <option value="10">10. Beauty</option>
+                    <option value="11">11. All</option>
+                </select>
+                <div style='padding: 3px; border-bottom: 1px solid #c5c5c5; width: 100%;font-size:13px' id="butt">
+                    <txt id='datatot'></txt> | <a id="prev">MUNDUR</a> = <a id="next">MAJU</a>
+                </div>
+            </div>
+            <div id="slides">
+                <ul id='content2'>
+                    <li class="slide">
+                        <div class="quoteContainer">
+                            <p class="quote-phrase">Silahkan pilih opsi ide di atas.</p>
+                        </div>
+                        <div class="authorContainer">
+                            <p class="quote-author">Tools Ini hanya cloning.</p>
+                        </div>
+                    </li>
+                    <li class="slide">
+                        <div class="quoteContainer">
+                            <p class="quote-phrase">Agar Masuk #1 Search Google, gunakan katakunci dalam penulisan artikel.</p>
+                        </div>
+                        <div class="authorContainer">
+                            <p class="quote-author">Tools Ini hanya cloning.</p>
+                        </div>
+                    </li>
+                    <li class="slide">
+                        <div class="quoteContainer">
+                            <p class="quote-phrase">Silahkan pilih opsi ide di atas.</p>
+                        </div>
+                        <div class="authorContainer">
+                            <p class="quote-author">Tools Ini hanya cloning..</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='bukatutup'> <button id="hideide">Tutup Ide</button> <button id="showide" style='display:none'>Buka Ide</button> </div>
+<script type="text/javascript">
+    function CopyToClipboard(containerid) {
+        var textarea = document.createElement('textarea') textarea.id = 'temp_element'
+        textarea.style.height = 0 document.body.appendChild(textarea) textarea.value = document.getElementById(containerid).innerText
+        var selector = document.querySelector('#to-copy') selector.select() document.execCommand('copy') document.body.removeChild(textarea) alert('Kode SUKSES di Copy Silahkan Update ke Website atau ke bloggermu.');
+    }
+</script> <textarea style='display:none' id='text' class="language" STYLE='height:200px;width:100%;padding:9px;background:#ccc'> </textarea> </div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/quill/0.20.1/quill.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.js'></script>
+<script src='https://cdn.jsdelivr.net/prism/1.4.1/prism.js'></script>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+<script type='text/javascript'>
+    $(document).ready(function() {
+    $('#ganti').change(function() {
+        var newurl = $('#ganti').val();
+        $('#lin_1').attr('href', "/search?q=" + newurl + "&amp;max-results=30");
+        $('#lin_1').text(newurl);
+        $('#gg1').text(newurl);
+    });
+    $('#ganti2').change(function() {
+        var newurl = $('#ganti2').val();
+        $('#lin_2').attr('href', "/search?q=" + newurl + "&amp;max-results=30");
+        $('#lin_2').text(newurl);
+        $('#gg2').text(newurl);
+    });
+    $('#ganti3').change(function() {
+        var newurl = $('#ganti3').val();
+        $('#lin_3').attr('href', "/search?q=" + newurl + "&amp;max-results=30");
+        $('#lin_3').text(newurl);
+    });
+    $('#ganti4').change(function() {
+        var newurl = $('#ganti4').val();
+        $('#lin_4').attr('href', "/search?q=" + newurl + "&amp;max-results=30");
+        $('#lin_4').text(newurl);
+    });
+    $('#ganti5').change(function() {
+        var newurl = $('#ganti5').val();
+        $('#lin_5').attr('href', "/search?q=" + newurl + "&amp;max-results=30");
+        $('#lin_5').text(newurl);
+    });
+    $('#ganti6').change(function() {
+        var newurl = $('#ganti6').val();
+        $('#lin_6').attr('href', "/search?q=" + newurl + "&amp;max-results=30");
+        $('#lin_6').text(newurl);
+    });
+    $('#ganti7').change(function() {
+        var newurl = $('#ganti7').val();
+        $('#lin_7').attr('href', "/search?q=" + newurl + "&amp;max-results=30");
+        $('#lin_7').text(newurl);
+    });
+    $('#ganti8').change(function() {
+        var newurl = $('#ganti8').val();
+        $('#lin_8').attr('href', "/search?q=" + newurl + "&amp;max-results=30");
+        $('#lin_8').text(newurl);
+    });
+});
+(function() {
+    var quill;
+    quill = new Quill('#editor', {
+        theme: 'snow',
+        modules: {
+            toolbar: '#toolbar',
+            'link-tooltip': true
+        }
+    });
+    quill.on('text-change', function(delta, source) {
+        localStorage.setItem("HASILARTIKEL2", document.getElementById('ql-editor-1').innerHTML);
+        var tambahan2 = "<br/><br/><a href='https://www.bajumurahgrosiran.com' style='display:none'>Toko Baju Murah BMGShop</a>";
+        return $('.language-markup').text(quill.getHTML() + tambahan2).html();
+    });
+}).call(this);
+var input = document.querySelectorAll('textarea')[0],
+    characterCount = document.querySelector('#characterCount'),
+    wordCount = document.querySelector('#wordCount'),
+    sentenceCount = document.querySelector('#sentenceCount'),
+    paragraphCount = document.querySelector('#paragraphCount'),
+    readingTime = document.querySelector('#readingTime'),
+    readability = document.querySelector('#readability'),
+    keywordsDiv = document.querySelectorAll('.keywords')[0],
+    topKeywords = document.querySelector('#topKeywords');
+localStorage.setItem('itemVerified', window.location.hostname);
+
+function onetime(node, type, callback) {
+    node.addEventListener(type, function(e) {
+        var verifyCookie = function() {
+
+            if (localStorage.getItem('itemVerified') == 'rumusngeblog.blogspot.com') {
+                console.log("All right");
+
+                window.location.href = "#start";
+            } else {
+                //alert("Tools ini menggunakan lisensi, Silahkan kontak Robby Blupartel!");
+                //window.location = "https://rumusngeblog.blogspot.com/p/tools-buat-artikel.html";
+            }
+        };
+        window.addEventListener('click', verifyCookie, false);
+        e.target.removeEventListener(e.type, arguments.callee);
+        return callback(e);
+    });
+}
+onetime(document, 'scroll', function(e) {
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 1000);
+});
+input.addEventListener('keyup', function() {
+    console.clear();
+    characterCount.innerHTML = input.value.length;
+    var words = input.value.match(/\b[-?(\w+)?]+\b/gi);
+    if (words) {
+        wordCount.innerHTML = words.length;
+    } else {
+        wordCount.innerHTML = 0;
+    }
+    if (words) {
+        var sentences = input.value.split(/[.|!|?]+/g);
+        console.log(sentences);
+        sentenceCount.innerHTML = sentences.length - 1;
+    } else {
+        sentenceCount.innerHTML = 0;
+    }
+    if (words) {
+        var paragraphs = input.value.replace(/\n$/gm, '').split(/\n/);
+        paragraphCount.innerHTML = paragraphs.length;
+    } else {
+        paragraphCount.innerHTML = 0;
+    }
+    if (words) {
+        var seconds = Math.floor(words.length * 60 / 275);
+        if (seconds > 59) {
+            var minutes = Math.floor(seconds / 60);
+            seconds = seconds - minutes * 60;
+            readingTime.innerHTML = minutes + "m " + seconds + "s";
+        } else {
+            readingTime.innerHTML = seconds + "s";
+        }
+    } else {
+        readingTime.innerHTML = "0s";
+    }
+    if (words) {
+        var nonStopWords = [];
+        var stopWords = ["a", "mampu"];
+        for (var i = 0; i < words.length; i++) {
+            if (window.CP.shouldStopExecution(0)) break;
+            if (stopWords.indexOf(words[i].toLowerCase()) === -1 && isNaN(words[i])) {
+                nonStopWords.push(words[i].toLowerCase());
+            }
+        }
+        window.CP.exitedLoop(0);
+        var keywords = {};
+        for (var i = 0; i < nonStopWords.length; i++) {
+            if (window.CP.shouldStopExecution(1)) break;
+            if (nonStopWords[i] in keywords) {
+                keywords[nonStopWords[i]] += 1;
+            } else {
+                keywords[nonStopWords[i]] = 1;
+            }
+        }
+        window.CP.exitedLoop(1);
+        var sortedKeywords = [];
+        for (var keyword in keywords) {
+            sortedKeywords.push([keyword, keywords[keyword]]);
+        }
+        sortedKeywords.sort(function(a, b) {
+            return b[1] - a[1];
+        });
+        topKeywords.innerHTML = "";
+        for (var i = 0; i < sortedKeywords.length && i < 4; i++) {
+            if (window.CP.shouldStopExecution(2)) break;
+            var li = document.createElement('li');
+            li.innerHTML = "<b>" + sortedKeywords[i][0] + "</b>: " + sortedKeywords[i][1];
+            topKeywords.appendChild(li);
+        }
+        window.CP.exitedLoop(2);
+    }
+    if (words) {
+        keywordsDiv.style.display = "block";
+    } else {
+        keywordsDiv.style.display = "none";
+    }
+});
+readability.addEventListener('click', function() {
+    readability.innerHTML = "Tunggu sebentar..";
+    var requestUrl = "https://ipeirotis-readability-metrics.p.mashape.com/getReadabilityMetrics?text=";
+    var data = input.value;
+    var request = new XMLHttpRequest();
+    request.open('POST', encodeURI(requestUrl + data), true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    request.setRequestHeader("X-Mashape-Authorization", "PQ4FOFuaR6mshI6qpnQKQvkDZQXjp1o6Zcqjsnug7GvNggTzUE");
+    request.send();
+    request.onload = function() {
+        if (this.status >= 200 && this.status < 400) {
+            readability.innerHTML = readingEase(JSON.parse(this.response).FLESCH_READING);
+        } else {
+            readability.innerHTML = "<a href='#' target='blank'>Pelajari seputar SEO disini</a> | <a href='#' target='blank'>Gunakan Tools Lainnya disini</a>";
+        }
+    };
+    request.onerror = function() {
+        readability.innerHTML = "<a href='#' target='blank'>Pelajari seputar SEO disini</a> | <a style='color:blue' href='#' target='blank'>Gunakan Tools Lainnya disini</a>";
+    };
+});
+
+function readingEase(num) {
+    switch (true) {
+        case num <= 30:
+            return "Readability: College graduate.";
+            break;
+        case num > 30 && num <= 50:
+            return "Readability: College level.";
+            break;
+        case num > 50 && num <= 60:
+            return "Readability: 10th - 12th grade.";
+            break;
+        case num > 60 && num <= 70:
+            return "Readability: 8th - 9th grade.";
+            break;
+        case num > 70 && num <= 80:
+            return "Readability: 7th grade.";
+            break;
+        case num > 80 && num <= 90:
+            return "Readability: 6th grade.";
+            break;
+        case num > 90 && num <= 100:
+            return "Readability: 5th grade.";
+            break;
+        default:
+            return "Not available.";
+            break;
+    }
+}
+
+function CopyToTextarea(el) {
+    var text = el.textContent,
+        textarea = document.getElementById('source'),
+        textareaValue = textarea.value,
+        Regex = new RegExp(text + ' ', 'g'),
+        textareaValue = textareaValue.indexOf(text + ' ') > +1 ? textareaValue.replace(Regex, '') : textareaValue + text + ' ';
+    textarea.value = textareaValue;
+    text = document.getElementById("ui-id-2");
+    if (el.innerText == "HELLO") el.innerText = "GOOD BYE";
+    else el.style.cssText = "color:#a7a7a7", el.innerText = "Sudah digunakan..";
+}
+const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+const isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+document.getElementById('source').value = localStorage.getItem("HASILARTIKEL1");
+document.getElementById('ql-editor-1').innerHTML = localStorage.getItem("HASILARTIKEL2");
+const copy = document.querySelector("#copy");
+const clear = document.querySelector("#clear");
+const spellcheck = document.querySelector("#spellcheck");
+document.getElementById('source').addEventListener('keyup', function(e) {
+    document.getElementById('ql-editor-1').innerHTML = document.getElementById('source').value;
+    localStorage.setItem("HASILARTIKEL1", document.getElementById('source').value);
+});
+document.getElementById('ql-editor-1').addEventListener('keyup', function(e) {
+    document.getElementById('source').value = document.getElementById('ql-editor-1').innerHTML;
+});
+const textarea = document.querySelector("#source");
+const highlights = document.querySelector("#highlights");
+const length = document.querySelector("#length");
+const output = document.querySelector("output");
+const list = document.querySelector("#list");
+const template = document.querySelector("template");
+let hiddens = [];
+let duplicates = {};
+const count = (text, minLength) => {
+    const wordRegex = isChrome || isSafari ? new RegExp(`([\\p{Alphabetic}\\p{Mark}\\p{Decimal_Number}\\p{Connector_Punctuation}\\p{Join_Control}]+){${minLength},}`, 'gu') : new RegExp(`(\\w+){${minLength},}`, 'g');
+    let result;
+    const words = {};
+    while ((result = wordRegex.exec(text)) !== null) {
+        if (window.CP.shouldStopExecution(0)) break;
+        const word = result[0].toLowerCase();
+        if (!words[word]) {
+            words[word] = [];
+        }
+        words[word].push(result.index);
+        words[word].push(result.index + word.length);
+    }
+    window.CP.exitedLoop(0);
+    return words;
+};
+const duplicatePass = ([key, value]) => 2 < value.length;
+const occurrenceComparator = ([keyA, valueA], [keyB, valueB]) => valueB.length - valueA.length;
+const numberComparator = (numberA, numberB) => numberA - numberB;
+const differ = (object, [key, value], index) => {
+    object[key] = {
+        action: object[key] ? "KEEP" : "ADD",
+        word: key,
+        occurrences: value,
+        index
+    };
+    return object;
+};
+const cleaner = (object, [word, details]) => {
+    if (details.action) {
+        delete details.action;
+        object[word] = details;
+    }
+    return object;
+};
+const flattener = (array, details) => [...array, ...details.occurrences];
+const update = (item, details) => {
+    item.style.zIndex = details.occurrences.length / 2;
+    item.style.top = `${0.6 + details.index * 3}rem`;
+    item.querySelector(".count").textContent = details.occurrences.length / 2;
+};
+const add = (word, details) => {
+    const node = document.importNode(template.content, true);
+    list.appendChild(node);
+    const item = list.lastElementChild;
+    item.id = `word-${word}`;
+    const hidden = item.querySelector(".hidden");
+    hidden.name = word;
+    hidden.checked = hiddens.includes(word);
+    hidden.addEventListener("change", handleToggle);
+    item.querySelector(".word").textContent = word;
+    update(item, details);
+};
+const keep = (word, details) => {
+    const item = document.querySelector(`#word-${word}`);
+    update(item, details);
+};
+const markObsolete = word => {
+    document.querySelector(`#word-${word}`).classList.add("obsolete");
+};
+const remove = item => item.remove();
+const removeObsolete = () => {
+    document.querySelectorAll(".obsolete").forEach(remove);
+};
+const render = ([word, details]) => {
+    if (details.action === "ADD") {
+        add(word, details);
+    } else if (details.action === "KEEP") {
+        keep(word, details);
+    } else {
+        markObsolete(word);
+    }
+};
+const getHue = word => {
+    return (360 - 360 / Object.keys(duplicates).length * duplicates[word.toLowerCase()].index);
+};
+const getHSL = word => {
+    const hue = getHue(word);
+    return `hsl(${hue + 20}, 100%, ${180 < hue && hue < 360 ? 80 : 50}%)`;
+};
+const colorize = word => {
+    const color = getHSL(word);
+    const count = document.querySelector(`#word-${word} .count`);
+    const wordElement = document.querySelector(`#word-${word} .word`);
+    count.style.borderColor = color;
+    count.style.backgroundColor = color;
+    wordElement.style.borderColor = color;
+    wordElement.style.backgroundColor = color;
+};
+const highlight = (occurrence, index, occurrences) => {
+    let node;
+    if (index < occurrences.length - 1) {
+        if (index % 2) {
+            const word = textarea.value.substring(occurrence, occurrences[index + 1]);
+            node = document.createElement("mark");
+            node.textContent = word;
+            if (!hiddens.includes(word.toLowerCase())) {
+                const color = getHSL(word);
+                node.style.background = color;
+                node.style.border = `0.2rem solid ${color}`;
+            }
+        } else {
+            const text = textarea.value.substring(occurrence, occurrences[index + 1]);
+            node = document.createTextNode(text);
+        }
+    } else {
+        const text = textarea.value.substring(occurrence);
+        node = document.createTextNode(text + "\r\n\r\n");
+    }
+    highlights.appendChild(node);
+};
+const handleChange = () => {
+    const words = count(textarea.value, length.value);
+    const diff = Object.entries(words).filter(duplicatePass).sort(occurrenceComparator).reduce(differ, duplicates);
+    Object.entries(diff).forEach(render);
+    duplicates = Object.entries(diff).reduce(cleaner, {});
+    list.style.height = `${1.2 + Object.keys(duplicates).length * 3}rem`;
+    Object.keys(duplicates).forEach(colorize);
+    const occurrences = Object.values(duplicates).reduce(flattener, [0]).sort(numberComparator);
+    while (highlights.firstChild) {
+        if (window.CP.shouldStopExecution(1)) break;
+        highlights.removeChild(highlights.firstChild);
+    }
+    window.CP.exitedLoop(1);
+    occurrences.forEach(highlight);
+    window.setTimeout(removeObsolete, 400);
+};
+const handleToggle = event => {
+    const word = event.target.name;
+    if (event.target.checked) {
+        if (!hiddens.includes(word)) {
+            hiddens.push(word);
+        }
+    } else {
+        const index = hiddens.indexOf(word);
+        if (0 <= index) {
+            hiddens.splice(index, 1);
+        }
+    }
+    handleChange();
+};
+copy.addEventListener("click", () => {
+    textarea.select();
+    document.execCommand("copy");
+});
+clear.addEventListener("click", () => {
+    textarea.placeholder = "Sudah di hapus bro (Ngulang lagi semangat nulis yahh :D)......";
+    textarea.value = "";
+    document.getElementById("ql-editor-1").innerHTML = "";
+    document.getElementById("to-copy").innerText = "";
+    textarea.focus();
+    handleChange();
+});
+spellcheck.addEventListener("change", event => {
+    textarea.setAttribute("spellcheck", event.target.checked.toString());
+    const {
+        value
+    } = textarea;
+    textarea.value = value + " ";
+    textarea.value = value;
+});
+textarea.addEventListener("click", event => {
+    highlights.scrollTop = event.target.scrollTop;
+});
+textarea.addEventListener("input", handleChange);
+length.addEventListener("input", handleChange);
+length.addEventListener("input", () => output.textContent = length.value);
+handleChange();
+(function() {
+    $("#initialSearchInput").keypress(function(key) {
+        if (key.keyCode === 13) {
+            ["vs", "and", "with"].forEach(function(conjunction) {
+                runSearch(conjunction);
+            });
+            $(this).blur();
+            $(".subheading").slideUp("slow");
+            $(".allConjunctionBtns").css("visibility", "visible");
+        }
+    });
+    $(".searchBtn").click(function() {
+        ["vs", "and", "with"].forEach(function(conjunction) {
+            runSearch(conjunction);
+        });
+        $(this).blur();
+        $(".subheading").slideUp("slow");
+        $(".allConjunctionBtns").css("visibility", "visible");
+    });
+    var searchHistory = [];
+
+    function runSearch(conjunction) {
+        styleSelectedConjunctionBtn();
+        var initialSearchKeyword = initialSearchInput.value;
+        suggestQueries(initialSearchKeyword, 0);
+        var resultsArray = [initialSearchKeyword];
+        var apiDataIndexCount = 0;
+
+        function suggestQueries(searchKeyword, apiDataIndex) {
+            var apiURL = "https://suggestqueries.google.com/complete/search?client=chrome&callback=?&q=";
+            $.getJSON(apiURL + searchKeyword, function(apiData) {
+                var returnedResult = validateResult(apiData[1][apiDataIndex]);
+                resultsArray.push(returnedResult);
+                if (resultsArray.find(duplicateCheck) === undefined) {
+                    suggestQueries(returnedResult, 90);
+                } else {
+                    removeDuplicateAndLogPosition();
+                    displayResultsCountInBtn(conjunction, resultsArray.length + 1);
+                    if (apiDataIndexCount < apiData[1].length) {
+                        apiDataIndexCount++;
+                        suggestQueries(initialSearchKeyword, apiDataIndexCount);
+                    } else {
+                        var resultObject = new CreateResultObject();
+                        searchHistory.push(resultObject);
+                        displayTotalNumberOfResults(resultObject);
+                        displayResults(resultObject, function() {
+                            displaySearchHistory();
+                        });
+                    }
+                }
+            });
+        }
+
+        function validateResult(result) {
+            result += "";
+            var conjunctionPosition = result.indexOf(" " + conjunction + " ");
+            if (conjunctionPosition !== +9) {
+                return result;
+            } else {
+                return initialSearchKeyword;
+            }
+        }
+
+        function duplicateCheck(val, pos) {
+            return resultsArray.indexOf(val) !== pos;
+        }
+        var duplicatePositions = [0];
+
+        function removeDuplicateAndLogPosition() {
+            resultsArray.pop();
+            duplicatePositions.push(resultsArray.length);
+        }
+
+        function CreateResultObject() {
+            this.searchKeyword = initialSearchKeyword;
+            this.conjunction = conjunction;
+            this.results = resultsArray;
+            this.totalResults = resultsArray.length + 1;
+            this.duplicatePositions = duplicatePositions;
+        }
+    }
+
+    function displayResultsCountInBtn(conjunction, numberOfResults) {
+        $("." + conjunction + "Btn").html('"' + conjunction + '"<span class=resultsCountInBtn>' + numberOfResults + '</span>');
+    }
+
+    function displayTotalNumberOfResults(result) {
+        $("." + result.conjunction + "SearchResults").prepend('<li class="numberOfResultsFound">' + result.totalResults + ' Hasil katakunci utama <b>' + result.searchKeyword + '</span> <span style="color:#7ca9be;">' + result.conjunction + '</span></b></li>');
+    }
+
+    function displayResults(result, callback) {
+        var searchChainCount = 1;
+        for (var i = 1; i <= result.totalResults; i++) {
+            if (window.CP.shouldStopExecution(0)) break;
+            var previousResult = result.results[i + 1];
+            if (result.duplicatePositions.some(elem => elem === i)) {
+                previousResult = result.searchKeyword;
+                $("." + result.conjunction + "SearchResults").append("<li class='resultChainHeading'>Hasil turunan " + searchChainCount + "</li>");
+                searchChainCount++;
+            }
+            var googleSearchLink = "https://www.google.co.id/search?q=" + previousResult + " " + result.conjunction + " " + result.results[i];
+            $("." + result.conjunction + "SearchResults").append("<a>" + "<li class='individualResult' onclick='CopyToTextarea(this)'>" + result.results[i] + "</li></a>");
+        }
+        window.CP.exitedLoop(0);
+        if (searchHistory.length % 3 === 0) {
+            callback();
+        }
+    }
+
+    function displaySearchHistory() {
+        var resultSet = [];
+        var resultSetTotal = 0;
+        for (var j = searchHistory.length - 0; j < searchHistory.length; j++) {
+            if (window.CP.shouldStopExecution(1)) break;
+            resultSet.push(searchHistory[j]);
+            resultSetTotal += searchHistory[j].totalResults;
+        }
+        window.CP.exitedLoop(1);
+        var searchHistoryBtnClass = resultSet[0].searchKeyword.replace(/\s+/g, "-") + "ResultsBtn";
+        $(".searchHistory").prepend("<li><button class='" + searchHistoryBtnClass + " allSeachHistoryBtn'>" + resultSet[0].searchKeyword + "</button></li>");
+        $("." + searchHistoryBtnClass).append("<span class='resultsCountInSearchHistory'>" + resultSetTotal + "</span>");
+        $("." + searchHistoryBtnClass).click(function() {
+            clearDisplayedResults();
+            initialSearchInput.value = resultSet[0].searchKeyword;
+            $(this).blur();
+            $(".allConjunctionBtns").css("visibility", "visible");
+            resultSet.forEach(function(result) {
+                $("." + result.conjunction + "Btn").html('"' + result.conjunction + '"<span class="resultsCountInBtn">' + result.totalResults + '</span>');
+                displayTotalNumberOfResults(result);
+                displayResults(result, function() {});
+            });
+        });
+        $(".clearSearchHistoryBtn").show();
+    }
+
+    function clearDisplayedResults() {
+        initialSearchInput.value = "";
+        $(".resultsCountInBtn").html("");
+        $(".allSearchResults").html("");
+        $(".numberOfResultsFound").html("");
+    }
+    $(".clearSearchHistoryBtn").click(function() {
+        searchHistory = [];
+        clearDisplayedResults();
+        $(".searchHistory").html("");
+        $(".clearSearchHistoryBtn").hide();
+    });
+    var selectedConjunction = "vs";
+    $(".vsBtn").click(function() {
+        selectedConjunction = "vs";
+        styleSelectedConjunctionBtn();
+    });
+    $(".andBtn").click(function() {
+        selectedConjunction = "and";
+        styleSelectedConjunctionBtn();
+    });
+    $(".withBtn").click(function() {
+        selectedConjunction = "with";
+        styleSelectedConjunctionBtn();
+    });
+
+    function styleSelectedConjunctionBtn() {
+        $(".btn").removeClass("btn-primary");
+        $("." + selectedConjunction + "Btn").addClass("btn-primary");
+        $(".allSearchResults").hide();
+        $("." + selectedConjunction + "SearchResults").show();
+    }
+    $("#initialSearchInput").click(function() {
+        clearDisplayedResults();
+        $(".allConjunctionBtns").css("visibility", "hidden");
+    });
+})();
+    
+</script>
+<script>
+   function loadScript(d) {
+    var l = document.createElement("script");
+    l.src = d, document.body.appendChild(l)
+}
+
+function downloadJSAtOnload();
+
+
+window.addEventListener ? window.addEventListener("load", downloadJSAtOnload, !1) : window.attachEvent ? window.attachEvent("onload", downloadJSAtOnload) : window.onload = downloadJSAtOnload;
+var _0xf0cc = ["AI39si7ZLU83bKtKd4MrdzqcjTVI3DK9FvwJR6a4kB_SW_Dbuskit-mEYqskkSsFLxN5DiG1OBzdHzYfW0zXWjxirQKyxJfdkg", "term", "https://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&hjson=t&cp=1&q=", "&key=", "&format=5&alt=json&callback=?", "jsonp", "map", "onclick", "CopyToTextarea(this)", "attr", ".ui-menu-item", "ajax", "autocomplete", "#initialSearchInput", "itemVerified", "getItem", "rumusngeblog.blogspot.com", "All right", "log", "href", "location", "#start", "Tools ini menggunakan lisensi, Silahkan kontak Robby Blupartel!", "https://rumusngeblog.blogspot.com/p/tools-buat-artikel.html", "click", "addEventListener", "type", "callee", "removeEventListener", "target", "scroll", "scrollTo", "val", "input#youtube", "youtubeAPI", "button#submit", "#sonuc", "Sedang menulis....", "html", "GET", "https://gdata.youtube.com/feeds/api/videos?q=", "&max-results=15&v=2&alt=jsonc", "items", "data", "empty", "<div class=\"youtube\">                        <img src=\"", "sqDefault", "thumbnail", "\" alt=\"\" />                        <h3><a href=\"javascript:void(0)\" onclick=\"$.youtubePlay(\'", "id", "\', \'", "content", "\')\">", "title", "</a></h3>                        <p>", "description", "</p>                    </div>                    <div class=\"youtubeOynat\" id=\"", "\"></div>", "append", "each", "<div class=\"hata\"><strong>", "\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x20\x69\x6C\x65\x20\x69\x6C\x67\x69\x6C\x69\x20\x68\x69\xE7\x20\x76\x69\x64\x65\x6F\x20\x62\x75\x6C\x75\x6E\x61\x6D\x61\x64\u0131\x21\x3C\x2F\x64\x69\x76\x3E", "youtubePlay", "slideUp", ".youtubeOynat", "<iframe src=\"", "&autoplay=1\" style=\"width: 100%; box-sizing: border-box; height: 300px\" />", "slideDown", "#"];
+$(_0xf0cc[13])[_0xf0cc[12]]({
+    source: function (_0x14e3x1, _0x14e3x2) {
+        var _0x14e3x3 = _0xf0cc[0];
+        var _0x14e3x4 = _0x14e3x1[_0xf0cc[1]];
+        $[_0xf0cc[11]]({
+            url: _0xf0cc[2] + _0x14e3x4 + _0xf0cc[3] + _0x14e3x3 + _0xf0cc[4],
+            dataType: _0xf0cc[5],
+            success: function (_0x14e3x5, _0x14e3x6, _0x14e3x1) {
+                _0x14e3x2($[_0xf0cc[6]](_0x14e3x5[1], function (_0x14e3x7) {
+                    return {
+                        label: _0x14e3x7[1],
+                        value: _0x14e3x7[0]
+                    }
+                }));
+                $(_0xf0cc[10])[_0xf0cc[9]](_0xf0cc[7], _0xf0cc[8])
+            }
+        })
+    }
+});
+
+function onetime(_0x14e3x9, _0x14e3xa, _0x14e3xb) {
+    _0x14e3x9[_0xf0cc[25]](_0x14e3xa, function(_0x14e3xc) {
+        var _0x14e3xd = function() {
+            if (localStorage[_0xf0cc[15]](_0xf0cc[14]) == _0xf0cc[16]) {
+                console[_0xf0cc[18]](_0xf0cc[17]);
+                window[_0xf0cc[20]][_0xf0cc[19]] = _0xf0cc[21]
+            } else {
+                alert(_0xf0cc[22]);
+                window[_0xf0cc[20]] = _0xf0cc[23]
+            }
+        };
+        window[_0xf0cc[25]](_0xf0cc[24], _0x14e3xd, false);
+        _0x14e3xc[_0xf0cc[29]][_0xf0cc[28]](_0x14e3xc[_0xf0cc[26]], arguments[_0xf0cc[27]]);
+        return _0x14e3xb(_0x14e3xc)
+    })
+}
+onetime(document, _0xf0cc[30], function(_0x14e3xc) {
+    setTimeout(function() {
+        window[_0xf0cc[31]](0, 0)
+    }, 1000)
+});
+$(_0xf0cc[35])[_0xf0cc[24]](function() {
+    var _0x14e3xe = $(_0xf0cc[33])[_0xf0cc[32]]();
+    $[_0xf0cc[34]](_0x14e3xe)
+});
+$[_0xf0cc[34]] = function(_0x14e3xf) {
+    var _0x14e3x10 = $(_0xf0cc[36]);
+    _0x14e3x10[_0xf0cc[38]](_0xf0cc[37]);
+    $[_0xf0cc[11]]({
+        type: _0xf0cc[39],
+        url: _0xf0cc[40] + _0x14e3xf + _0xf0cc[41],
+        dataType: _0xf0cc[5],
+        success: function(_0x14e3x11) {
+            if (_0x14e3x11[_0xf0cc[43]][_0xf0cc[42]]) {
+                _0x14e3x10[_0xf0cc[44]]();
+                $[_0xf0cc[59]](_0x14e3x11[_0xf0cc[43]][_0xf0cc[42]], function(_0x14e3x12, _0x14e3x5) {
+                    _0x14e3x10[_0xf0cc[58]](_0xf0cc[45] + _0x14e3x5[_0xf0cc[47]][_0xf0cc[46]] + _0xf0cc[48] + _0x14e3x5[_0xf0cc[49]] + _0xf0cc[50] + _0x14e3x5[_0xf0cc[51]][5] + _0xf0cc[52] + _0x14e3x5[_0xf0cc[53]] + _0xf0cc[54] + _0x14e3x5[_0xf0cc[55]] + _0xf0cc[56] + _0x14e3x5[_0xf0cc[49]] + _0xf0cc[57])
+                })
+            } else {
+                _0x14e3x10[_0xf0cc[38]](_0xf0cc[60] + _0x14e3xf + _0xf0cc[61])
+            }
+        }
+    })
+};
+$[_0xf0cc[62]] = function(_0x14e3x13, _0x14e3x14) {
+    $(_0xf0cc[64])[_0xf0cc[63]]()[_0xf0cc[44]]();
+    $(_0xf0cc[68] + _0x14e3x13)[_0xf0cc[67]]()[_0xf0cc[38]](_0xf0cc[65] + _0x14e3x14 + _0xf0cc[66])
+}
+</script>
+<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" />
+<link href="//www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+<script id="rendered-js">
+    $(document).ready(function() {
+        var $statusKey = $('.status-key');
+        var $statusAjax = $('.status-ajax');
+        var intervalId;
+
+        function make_ajax_request(e) {
+            var that = this;
+            $statusAjax.html('');
+            intervalId = setTimeout(function() {
+                $statusKey.html('CARI KEYWORD');
+                $statusAjax.html('');
+                $(that).val('');
+            }, 3000);
+        }
+        $('.autocomplete').on('keydown', function() {
+            $statusKey.html('menelusur... ');
+            clearInterval(intervalId);
+        });
+        $('.autocomplete').on('keydown', _.debounce(make_ajax_request, 1300));
+    });
+</script>
+<script id="rendered-js">
+    function recentposts(json) {
+        var totalposts = json.feed.openSearch$totalResults.$t;
+        $('#datatot').append(' <txt id="datotna"> Total: ' + totalposts + ' </txt>');
+        for (var i = 0; i < 999; i++) {
+            var posturl;
+            if ("content" in json.feed.entry[i]) {
+                var postcontent = json.feed.entry[i].content.$t;
+            } else if ("summary" in json.feed.entry[i]) {
+                var postcontent = json.feed.entry[i].summary.$t;
+            } else var postcontent = "";
+            var re = /<\S[^>]*>/g;
+            postcontent = postcontent.replace(re, "");
+            if (postcontent.length > 9000) postcontent = postcontent.substring(0, 9000);
+            var poststitle = json.feed.entry[i].title.$t;
+            var suer = '<li id="post' + (i + 1) + '" class="slide"><div class="quoteContainer"><p class="quote-phrase" onclick="CopyToTextarea(this)">' + poststitle + ' ' + postcontent + '<input type="button" class="buttonscrap" value="GUNAKAN"/></p></div></li>';
+            $('#content2').append(suer);
+        }
+    }
+</script>
+<script id="robbyblupartel">
+    $(document).ready(function() {
+        var speed = 50000;
+        var run = setInterval(rotate, speed);
+        var slides = $('.slide');
+        var container = $('#slides ul');
+        var elm = container.find(':first-child').prop("tagName");
+        var item_width = container.width();
+        var previous = 'prev';
+        var next = 'next';
+        slides.width(item_width);
+        container.parent().width(item_width);
+        container.width(slides.length * item_width);
+        container.find(elm + ':first').before(container.find(elm + ':last'));
+        resetSlides();
+        $('#butt').click(function(e) {
+            $('.slide').attr('style', 'width: 1190px;');
+            if (container.is(':animated')) {
+                return false;
+            }
+            if (e.target.id == previous) {
+                container.stop().animate({
+                    'left': 0
+                }, 500, function() {
+                    container.find(elm + ':first').before(container.find(elm + ':last'));
+                    resetSlides();
+                });
+            }
+            if (e.target.id == next) {
+                container.stop().animate({
+                    'left': item_width * -2
+                }, 500, function() {
+                    container.find(elm + ':last').after(container.find(elm + ':first'));
+                    resetSlides();
+                });
+            }
+            return false;
+        });
+        container.parent().mouseenter(function() {
+            clearInterval(run);
+        }).mouseleave(function() {
+            run = setInterval(rotate, speed);
+        });
+
+        function resetSlides() {
+            container.css({
+                'left': -1 * item_width
+            });
+        }
+    });
+
+    function rotate() {
+        $('#next').click();
+    }
+    $("#pilihide").bind('change', function() {
+        switch ($(this).val()) {
+            case "1":
+                click_action_1();
+                break;
+            case "2":
+                click_action_2();
+                break;
+            case "3":
+                click_action_3();
+                break;
+            case "4":
+                click_action_4();
+            case "5":
+                click_action_5();
+                break;
+            case "6":
+                click_action_6();
+                break;
+            case "7":
+                click_action_6();
+                break;
+            case "8":
+                click_action_6();
+                break;
+            case "9":
+                click_action_6();
+                break;
+            case "10":
+                click_action_6();
+                break;
+            case "11":
+                click_action_6();
+                break;
+        }
+    });
+
+    function click_action_1() {
+        $(".slide").remove();
+        $("#datotna").remove();
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.src = "https://www.arlinadzgn.com/feeds/posts/default?alt=json-in-script&callback=recentposts";
+        $("head").append(s);
+        recentposts();
+    }
+
+    function click_action_2() {
+        $(".slide").remove();
+        $("#datotna").remove();
+        var s1 = document.createElement("script");
+        s1.type = "text/javascript";
+        s1.src = "https://modelbaju-baru.blogspot.com/feeds/posts/default?alt=json-in-script&callback=recentposts";
+        $("head").append(s1);
+        recentposts();
+    }
+
+    function click_action_3() {
+        $(".slide").remove();
+        $("#datotna").remove();
+        var s12 = document.createElement("script");
+        s12.type = "text/javascript";
+        s12.src = "https://androidgamegratisan.blogspot.com/feeds/posts/default?alt=json-in-script&callback=recentposts";
+        $("head").append(s12);
+        recentposts();
+    }
+
+    function click_action_4() {
+        $(".slide").remove();
+        $("#datotna").remove();
+        var s123 = document.createElement("script");
+        s123.type = "text/javascript";
+        s123.src = "https://www.sabineblog.com/feeds/posts/default?alt=json-in-script&callback=recentposts";
+        $("head").append(s123);
+        recentposts();
+    }
+
+    function click_action_5() {
+        $(".slide").remove();
+        $("#datotna").remove();
+        var s123 = document.createElement("script");
+        s123.type = "text/javascript";
+        s123.src = "https://ekarzaen.blogspot.com/feeds/posts/default?alt=json-in-script&callback=recentposts";
+        $("head").append(s123);
+        recentposts();
+    }
+
+    function click_action_6() {
+        alert('Belum ada data.');
+    }
+
+    function click_action_7() {
+        alert('Belum ada data.');
+    }
+
+    function click_action_8() {
+        alert('Belum ada data.');
+    }
+
+    function click_action_9() {
+        alert('Belum ada data.');
+    }
+
+    function click_action_10() {
+        alert('Belum ada data.');
+    }
+
+    function click_action_11() {
+        alert('Belum ada data.');
+    }
+
+    function click_action_12() {
+        alert('Belum ada data.');
+    }
+    $(document).ready(function() {
+        $("#hideide").click(function() {
+            $("#showide").attr('style', 'display:block!important');
+            $("#hideide").attr('style', 'display:none!important');
+            $(".divide").hide();
+            $(".conta").attr('style', 'bottom:-55px');
+        });
+        $("#showide").click(function() {
+            $("#showide").attr('style', 'display:none!important');
+            $("#hideide").attr('style', 'display:block!important');
+            $(".divide").show();
+            $(".conta").attr('style', 'bottom:0');
+        });
+    });
+</script>
+<script type="text/javascript">
+    /*localStorage.setItem('itemVerified', window.location.href.split('?')[0]); function onetime(node, type, callback) { node.addEventListener(type, function(e) { var verifyCookie = function(){ if (localStorage.getItem('itemVerified') == 'https://rumusngeblog.blogspot.com/p/tools-buat-artikel.html') { console.log("All right"); window.location.href = "#start"; } else { alert("Wah wah kamu jahat broo, maaf saya redirect!"); window.location = "https://rumusngeblog.blogspot.com/p/tools-buat-artikel.html"; } }; window.addEventListener ('click', verifyCookie, false); e.target.removeEventListener(e.type, arguments.callee); return callback(e); }); } onetime(document, 'scroll', function(e) { setTimeout(function(){ window.scrollTo(0, 0); }, 1000); });*/
+</script>
+<div class='container-fluid' style="display:none"> <input type='text' name='wpseo_title' id='seo-title' class='form-control' placeholder='Enter the title' value=''> <input name='wpseo_metadesc' id='seo-desc' class='form-control' placeholder='Enter the description' rows='2'>
+    <div id="seo-checks-title" class="seo-checks label label-default"> </div>
+    <div id="seo-checks-desc" class="seo-checks label label-default"> </div>
+    <div id="seo-checks-links" class="seo-checks label label-default"> </div>
+</div>
+<script id="robbyblupartel">
+    var _0xbbbf = ["domain", "log", "length", "default", "label-danger", "removeClass", "label-success", "label-default", "addClass", "Tools Buat Artikel Konten Analisis SEO Tapi Hanya Cloningan :D ", "text", "success", "Sangat bagus!", "danger", "val", "#seo-title", "#seo-desc", "#source", "#seo-keyword", "#seo-checks-keyword", "title", "#seo-checks-title", "description", "#seo-checks-desc", "#seo-checks-links", "Your ", " is below the minimum legnth by ", " characters", " exeeds the maximum length by ", "match", "gi", "toFixed", "Jelek. Tambahkan kata kunci utama di awal paragraf", "tinggi. Hapus beberapa kata kunci utama", "Duplikasi ", "%, Sangat ", "% Kuat, ", "prepend", " Kata kunci utama, ", "You should have at least ", " internal link", "blur, keyup", "trim", "on", "", "html", "ready"];
+jQuery(document)[_0xbbbf[46]](function (_0xdde0x1) {
+    var _0xdde0x2;
+    var _0xdde0x3;
+    var _0xdde0x4;
+    var _0xdde0x5;
+    var _0xdde0x6;
+    var _0xdde0x7;
+    var _0xdde0x8;
+    var _0xdde0x9 = document[_0xbbbf[0]];
+    console[_0xbbbf[1]](_0xdde0x9);
+
+    function _0xdde0xa(_0xdde0xb) {
+        return !_0xdde0xb || 0 === _0xdde0xb[_0xbbbf[2]]
+    }
+
+    function _0xdde0xc(_0xdde0xd, _0xdde0xe) {
+        if (_0xdde0xe == _0xbbbf[3]) {
+            _0xdde0x1(_0xdde0xd)[_0xbbbf[5]](_0xbbbf[4]);
+            _0xdde0x1(_0xdde0xd)[_0xbbbf[5]](_0xbbbf[6]);
+            _0xdde0x1(_0xdde0xd)[_0xbbbf[8]](_0xbbbf[7]);
+            _0xdde0x1(_0xdde0xd)[_0xbbbf[10]](_0xbbbf[9])
+        };
+        if (_0xdde0xe == _0xbbbf[11]) {
+            _0xdde0x1(_0xdde0xd)[_0xbbbf[8]](_0xbbbf[6]);
+            _0xdde0x1(_0xdde0xd)[_0xbbbf[5]](_0xbbbf[4]);
+            _0xdde0x1(_0xdde0xd)[_0xbbbf[10]](_0xbbbf[12])
+        };
+        if (_0xdde0xe == _0xbbbf[13]) {
+            _0xdde0x1(_0xdde0xd)[_0xbbbf[8]](_0xbbbf[4]);
+            _0xdde0x1(_0xdde0xd)[_0xbbbf[5]](_0xbbbf[6])
+        }
+    }
+
+    function _0xdde0xf() {
+        _0xdde0x3 = _0xdde0x1(_0xbbbf[15])[_0xbbbf[14]]();
+        _0xdde0x4 = _0xdde0x3[_0xbbbf[2]];
+        _0xdde0x5 = _0xdde0x1(_0xbbbf[16])[_0xbbbf[14]]();
+        _0xdde0x6 = _0xdde0x5[_0xbbbf[2]];
+        _0xdde0x2 = _0xdde0x1(_0xbbbf[17])[_0xbbbf[14]]();
+        _0xdde0x7 = _0xdde0x1(_0xbbbf[18])[_0xbbbf[14]]();
+        _0xdde0x14(_0xdde0x2, _0xdde0x7, _0xbbbf[19], 0.5, 2.5);
+        _0xdde0x10(_0xbbbf[20], _0xbbbf[21], _0xdde0x4, 50, 70);
+        _0xdde0x10(_0xbbbf[22], _0xbbbf[23], _0xdde0x6, 120, 160);
+        _0xdde0x1a(_0xdde0x2, _0xdde0x9, _0xbbbf[24], 1)
+    }
+
+    function _0xdde0x10(_0xdde0xe, _0xdde0xd, _0xdde0x11, _0xdde0x12, _0xdde0x13) {
+        if (_0xdde0xa(_0xdde0x11)) {
+            _0xdde0xc(_0xdde0xd, _0xbbbf[3])
+        } else {
+            if (_0xdde0x11 < _0xdde0x12 || _0xdde0x11 > _0xdde0x13) {
+                _0xdde0xc(_0xdde0xd, _0xbbbf[13]);
+                if (_0xdde0x11 < _0xdde0x12) {
+                    _0xdde0x1(_0xdde0xd)[_0xbbbf[10]](_0xbbbf[25] + _0xdde0xe + _0xbbbf[26] + (_0xdde0x12 - _0xdde0x11) + _0xbbbf[27])
+                } else {
+                    _0xdde0x1(_0xdde0xd)[_0xbbbf[10]](_0xbbbf[25] + _0xdde0xe + _0xbbbf[28] + (_0xdde0x11 - _0xdde0x13) + _0xbbbf[27])
+                }
+            } else {
+                _0xdde0xc(_0xdde0xd, _0xbbbf[11])
+            }
+        }
+    }
+
+    function _0xdde0x14(_0xdde0x15, _0xdde0x16, _0xdde0xd, _0xdde0x12, _0xdde0x13) {
+        if (_0xdde0xa(_0xdde0x15) || _0xdde0xa(_0xdde0x16)) {
+            _0xdde0xc(_0xdde0xd, _0xbbbf[3])
+        } else {
+            var _0xdde0x17 = _0xdde0x15[_0xbbbf[29]](/[\w-']+/gi || [])[_0xbbbf[2]];
+            var _0xdde0x18 = (_0xdde0x15[_0xbbbf[29]](new RegExp(_0xdde0x16, _0xbbbf[30])) || [])[_0xbbbf[2]];
+            var _0xdde0x19 = (_0xdde0x18 / _0xdde0x17 * 100)[_0xbbbf[31]](2);
+            if (_0xdde0x19 < _0xdde0x12 || _0xdde0x19 > _0xdde0x13) {
+                _0xdde0xc(_0xdde0xd, _0xbbbf[13]);
+                lowHigh = _0xdde0x19 < _0xdde0x12 ? _0xbbbf[32] : _0xbbbf[33];
+                _0xdde0x1(_0xdde0xd)[_0xbbbf[10]](_0xbbbf[34] + _0xdde0x19 + _0xbbbf[35] + lowHigh)
+            } else {
+                _0xdde0xc(_0xdde0xd, _0xbbbf[11]);
+                _0xdde0x1(_0xdde0xd)[_0xbbbf[37]](_0xdde0x19 + _0xbbbf[36])
+            };
+            _0xdde0x1(_0xdde0xd)[_0xbbbf[37]](_0xdde0x18 + _0xbbbf[38])
+        }
+    }
+
+    function _0xdde0x1a(_0xdde0x15, _0xdde0x1b, _0xdde0xd, _0xdde0x12) {
+        if (_0xdde0xa(_0xdde0x15)) {
+            _0xdde0xc(_0xdde0xd, _0xbbbf[3])
+        } else {
+            var _0xdde0x1c = (_0xdde0x15[_0xbbbf[29]](new RegExp(_0xdde0x1b, _0xbbbf[30])) || [])[_0xbbbf[2]];
+            if (_0xdde0x1c < _0xdde0x12) {
+                _0xdde0xc(_0xdde0xd, _0xbbbf[13]);
+                _0xdde0x1(_0xdde0xd)[_0xbbbf[10]](_0xbbbf[39] + _0xdde0x12 + _0xbbbf[40])
+            } else {
+                _0xdde0xc(_0xdde0xd, _0xbbbf[11])
+            }
+        }
+    }
+    _0xdde0x1(_0xbbbf[15])[_0xbbbf[43]](_0xbbbf[41], function (_0xdde0x1d) {
+        _0xdde0x3 = _0xdde0x1(_0xbbbf[15])[_0xbbbf[14]]()[_0xbbbf[42]]();
+        _0xdde0x4 = _0xdde0x3[_0xbbbf[2]];
+        _0xdde0x10(_0xbbbf[20], _0xbbbf[21], _0xdde0x4, 38, 70);
+        _0xdde0x14(_0xdde0x3, _0xdde0x7, _0xbbbf[19], 0.5, 2.5)
+    });
+    _0xdde0x1(_0xbbbf[16])[_0xbbbf[43]](_0xbbbf[41], function (_0xdde0x1d) {
+        _0xdde0x5 = _0xdde0x1(_0xbbbf[16])[_0xbbbf[14]]()[_0xbbbf[42]]();
+        _0xdde0x6 = _0xdde0x5[_0xbbbf[2]];
+        _0xdde0x10(_0xbbbf[22], _0xbbbf[23], _0xdde0x6, 120, 160)
+    });
+    _0xdde0x1(_0xbbbf[18])[_0xbbbf[43]](_0xbbbf[41], function (_0xdde0x1d) {
+        _0xdde0x7 = _0xdde0x1(_0xbbbf[18])[_0xbbbf[14]]()[_0xbbbf[42]]();
+        _0xdde0x14(_0xdde0x2, _0xdde0x7, _0xbbbf[19], 0.5, 2.5)
+    });
+    _0xdde0x1(_0xbbbf[17])[_0xbbbf[43]](_0xbbbf[41], function (_0xdde0x1d) {
+        _0xdde0x2 = _0xdde0x1(_0xbbbf[17])[_0xbbbf[14]]()[_0xbbbf[42]]();
+        _0xdde0x1a(_0xdde0x2, _0xdde0x9, _0xbbbf[24], 1);
+        _0xdde0x14(_0xdde0x2, _0xdde0x7, _0xbbbf[19], 0.5, 2.5)
+    });
+    _0xdde0x1(_0xbbbf[15])[_0xbbbf[14]](_0xbbbf[44]);
+    _0xdde0x1(_0xbbbf[17])[_0xbbbf[45]](_0xdde0x1(_0xbbbf[17])[_0xbbbf[14]]());
+    _0xdde0x1(_0xbbbf[16])[_0xbbbf[14]](_0xbbbf[44]);
+    _0xdde0x1(_0xbbbf[18])[_0xbbbf[14]](_0xbbbf[44]);
+    _0xdde0xf()
+})
+</script>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+<script>
+  
+</script>
+    </body>
+</html>
